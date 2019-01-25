@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3f59e0fff97f95b4b8f73485ba004b26
+guid: c1e3f1a7dcdd181418dc44e5dbbe7687
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,9 +8,9 @@ ModelImporter:
     400000: default
     400002: //RootNode
     2100000: Material
-    2100002: Material.001
-    2100004: Base
-    2100006: Hole
+    2100002: Body
+    2100004: Details
+    2100006: Base
     2300000: default
     3300000: default
     4300000: default
