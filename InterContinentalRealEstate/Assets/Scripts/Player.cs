@@ -63,7 +63,7 @@ public class Player : MonoBehaviour {
     }
 
     void ReadInput() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButton("Fire1")) {
             if (!missileLaunched) {
                 //FIRE ZHE MIZZILEZ
                 GameObject missile = Instantiate(
