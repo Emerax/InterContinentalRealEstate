@@ -8,10 +8,13 @@ public class Dude : MonoBehaviour
 
     private float timeUntilNewDirection = 0.0f;
     private Quaternion direction = Quaternion.Euler(0, 0, 0);
+
+    private Rigidbody rb;
     
     void Start()
     {
         timeUntilNewDirection = 0.0f;
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -32,7 +35,7 @@ public class Dude : MonoBehaviour
 
         // Move in direction
         Quaternion deltaRotation = Quaternion.Lerp(Quaternion.Euler(0, 0, 0), direction, Time.deltaTime);
-        transform.position = deltaRotation * (transform.position - planetCenter) + planetCenter;
+        rb.MovePosition(deltaRotation * (transform.position - planetCenter) + planetCenter);
         timeUntilNewDirection -= Time.deltaTime;
 
         // Feet towards planet center
