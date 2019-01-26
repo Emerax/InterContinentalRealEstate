@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,11 +20,15 @@ public class Missile : MonoBehaviour {
     public Material baseBlue;
     public Material detailBlue;
 
+    Constants.Color color;
+
     // Start is called before the first frame update
     void Start()
     {
         Screen.lockCursor = true;
-        setColor(Constants.Color.Blue);
+        Array values = Enum.GetValues(typeof(Constants.Color));
+        color = (Constants.Color)values.GetValue((int)UnityEngine.Random.Range(0, values.Length));
+        setColor(color);
     }
 
     void setColor(Constants.Color color)
