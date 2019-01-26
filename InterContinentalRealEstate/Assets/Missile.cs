@@ -53,6 +53,10 @@ public class Missile : MonoBehaviour
         }
     }
 
+    public void OnCollision(Collider other) {
+        Destroy(this.gameObject);
+    }
+
     bool IsFalling() {
         return Vector3.Angle(transform.position, velocity) > 90;
     }

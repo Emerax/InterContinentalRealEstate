@@ -17,7 +17,8 @@ public class FollowCamera : MonoBehaviour
     void Update()
     {
         // Find the missile object
-        var missile = GameObject.Find("Missile");
+        var missile = GameObject.FindWithTag("Missile");
+        
         if(missile != null) {
             var missileComponent = missile.GetComponent(typeof(Missile)) as Missile;
             var distance = (float) System.Math.Sqrt(
@@ -25,7 +26,6 @@ public class FollowCamera : MonoBehaviour
             );
             var targetPosition = missile.transform.Find("CameraSeat").transform.position;
 
-            Debug.Log(distance);
             transform.position = initialPosition * (distance)
                      + targetPosition * (1 - distance);
             transform.eulerAngles = initialRotation * (distance)
