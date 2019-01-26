@@ -69,10 +69,8 @@ public class Missile : MonoBehaviour
 
         if(IsFalling() || hasAttached) {
             hasAttached = true;
-            float xMove = Input.GetAxis("Mouse X");// + Input.GetAxis("Joy X");
-            float yMove = Input.GetAxis("Mouse Y");// + Input.GetAxis("Joy Y");
-            Debug.Log(xMove);
-            Debug.Log(yMove);
+            float xMove = Input.GetAxis("Mouse X") + Input.GetAxis("Joy X");
+            float yMove = Input.GetAxis("Mouse Y") + Input.GetAxis("Joy Y");
 
             // Build a new local vector to use for rotateTo
             var velocityLocal = new Vector3(xMove, yMove, 1);
