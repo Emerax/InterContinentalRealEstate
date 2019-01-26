@@ -35,10 +35,21 @@ public class Player : MonoBehaviour {
     }
 
     void UpdateOrbitalMovement() {
-        var missile = GameObject.Find("Missile");
+        // Find the missile object
+        Missile missile = null;
+        foreach (var m in FindObjectsOfType(typeof(Missile)) as Missile[]) {
+            if(m.owner == this) {
+                missile = m;
+            }
+        }
+
         if (missile == null || !(missile.GetComponent(typeof(Missile)) as Missile).IsFalling()) {
-            float horizontalTranslation = Input.GetAxis("Mouse X") + Input.GetAxis("Joy X");
-            float verticalTranslation = Input.GetAxis("Mouse Y") + Input.GetAxis("Joy Y");
+            float horizontalTranslation = Input.GetAxis("Mouse X");
+            float verticalTranslation = Input.GetAxis("Mouse Y");
+            if(gameObject.name == "Player") {
+                horizontalTranslation = Input.GetAxis("Joy X");
+                verticalTranslation = Input.GetAxis("Joy Y");
+            }
 
             float movement = Input.GetAxisRaw("Mouse ScrollWheel");
 
@@ -64,7 +75,11 @@ public class Player : MonoBehaviour {
     }
 
     void ReadInput() {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButton("Fire1")) {
+        bool fire = Input.GetKeyDown(KeyCode.Space) || Input.GetButton("Fire2");
+        if(gameObject.name == "Player") {
+            fire = Input.GetButton("Fire1");
+        }
+        if (fire) {
             if (!missileLaunched) {
                 //FIRE ZHE MIZZILEZ
                 GameObject missile = Instantiate(

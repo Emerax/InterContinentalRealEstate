@@ -8,7 +8,7 @@ public class Missile : MonoBehaviour {
     float g = 0.2F;
 
     float steering_amonut = 1F;
-    Player owner;
+    public Player owner;
     bool isColliding = false;
     const float steerDuration = 1.5f;
     float steerTime = steerDuration;
@@ -80,8 +80,12 @@ public class Missile : MonoBehaviour {
 
         if(IsFalling() || hasAttached) {
             hasAttached = true;
-            float xMove = Input.GetAxis("Mouse X") + Input.GetAxis("Joy X");
-            float yMove = Input.GetAxis("Mouse Y") + Input.GetAxis("Joy Y");
+            float xMove = Input.GetAxis("Mouse X");
+            float yMove = Input.GetAxis("Mouse Y");
+            if(owner.name == "Player") {
+                xMove = Input.GetAxis("Joy X");
+                yMove = Input.GetAxis("Joy Y");
+            }
             steer(xMove, yMove);
         }
 

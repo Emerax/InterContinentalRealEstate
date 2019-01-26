@@ -5,6 +5,7 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour
 {
     Vector3 crashPosition;
+    public Player player;
 
     // Start is called before the first frame update
     void Start()
@@ -16,9 +17,13 @@ public class FollowCamera : MonoBehaviour
     void Update()
     {
         // Find the missile object
-        var missile = GameObject.FindWithTag("Missile");
-        var player = GameObject.Find("Player");
-        
+        Missile missile = null;
+        foreach (var m in FindObjectsOfType(typeof(Missile)) as Missile[]) {
+            if(m.owner == player) {
+                missile = m;
+            }
+        }
+
         var playerPosition = player.transform.position;
         var playerRotation = player.transform.eulerAngles;
         var playerRotationQuat = player.transform.rotation;
