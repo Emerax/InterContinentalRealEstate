@@ -16,6 +16,8 @@ public class Dude : MonoBehaviour
     private int clothesMaterialID = 0;
     private Rigidbody rb;
 
+    public float speed;
+
     void Start()
     {
         timeUntilNewDirection = 0.0f;
@@ -46,7 +48,7 @@ public class Dude : MonoBehaviour
         // New movement direction
         if (timeUntilNewDirection <= 0.0f)
         {
-            float maxAngle = 2.5f;
+            float maxAngle = 2.5f * speed;
             float maxTime = 5.0f;
 
             float angleA = (Random.value * 2.0f - 1.0f) * maxAngle;
