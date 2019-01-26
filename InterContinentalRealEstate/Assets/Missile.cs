@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Missile : MonoBehaviour {
-    Vector3 velocity = new Vector3(0, 1, 0) * 0.6F;
+    public Vector3 velocity = new Vector3(1, 1, 1) * 0.6F;
     float g = 0.2F;
 
     float steering_amonut = 1F;
@@ -92,11 +92,13 @@ public class Missile : MonoBehaviour {
         }
     }
 
-public void OnCollision(Collider other) {
-    GameObject clone = Instantiate(houseObject, transform.position, transform.rotation);
-    clone.transform.LookAt(new Vector3(0, 0, 0));
-    Destroy(this.gameObject);
-    Screen.lockCursor = false;
+    public void OnCollision(Collider other) {
+        if(IsFalling()) {
+            GameObject clone = Instantiate(houseObject, transform.position, transform.rotation);
+            clone.transform.LookAt(new Vector3(0, 0, 0));
+            Destroy(this.gameObject);
+            Screen.lockCursor = false;
+        }
     }
 
     public void OnDestroy() {
