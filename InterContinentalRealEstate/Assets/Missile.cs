@@ -12,10 +12,40 @@ public class Missile : MonoBehaviour
     public GameObject houseObject;
     public bool hasAttached = false;
 
+    public Material baseRed;
+    public Material detailRed;
+    public Material baseGreen;
+    public Material detailGreen;
+    public Material baseBlue;
+    public Material detailBlue;
+
     // Start is called before the first frame update
     void Start()
     {
         Screen.lockCursor = true;
+        setColor(Constants.Color.Blue);
+    }
+
+    void setColor(Constants.Color color)
+    {
+        var renderer = GetComponentInChildren<Renderer>();
+        var materials = renderer.sharedMaterials;
+        switch (color)
+        {
+            case Constants.Color.Red:
+                materials[0] = baseRed;
+                materials[1] = detailRed;
+                break;
+            case Constants.Color.Green:
+                materials[0] = baseGreen;
+                materials[1] = detailGreen;
+                break;
+            case Constants.Color.Blue:
+                materials[0] = baseBlue;
+                materials[1] = detailBlue;
+                break;
+        }
+        renderer.sharedMaterials = materials;
     }
 
     // Update is called once per frame
