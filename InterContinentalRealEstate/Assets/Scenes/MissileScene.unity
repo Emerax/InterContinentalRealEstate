@@ -293,6 +293,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d6a7ae6b07fb09ca0525efe5f4757b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  houseObject: {fileID: 3257379633878958209, guid: 81b48ef68ced20d2ea8042641f070534,
+    type: 3}
+  hasAttached: 0
 --- !u!4 &1016888428
 Transform:
   m_ObjectHideFlags: 0
