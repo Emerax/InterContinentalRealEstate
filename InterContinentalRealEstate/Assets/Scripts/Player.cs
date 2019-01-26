@@ -32,7 +32,6 @@ public class Player : MonoBehaviour {
         UpdateOrbitalMovement();
         ReadInput();
         UpdateUI();
-        score++;
     }
 
     void UpdateOrbitalMovement() {
