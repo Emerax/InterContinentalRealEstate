@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    Vector3 velocity = new Vector3(1, 0, -1) * 0.4F;
+    Vector3 velocity = new Vector3(1, 0, -1) * 0.6F;
     float g = 0.2F;
 
     float steering_amonut = 1F;
@@ -51,8 +51,6 @@ public class Missile : MonoBehaviour
                 0.0F
             );
         }
-
-        Debug.Log(CameraDistanceRatio());
     }
 
     bool IsFalling() {
