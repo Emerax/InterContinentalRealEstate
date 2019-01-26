@@ -135,7 +135,7 @@ public class Missile : MonoBehaviour {
         owner.ReportMissileHit();
     }
 
-    bool IsFalling() {
+    public bool IsFalling() {
         if(hasAttached || Vector3.Angle(transform.position, velocity) > 90) {
             hasAttached = true;
             return true;
