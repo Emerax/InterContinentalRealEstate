@@ -30,14 +30,14 @@ public class House : MonoBehaviour
 
     void Start()
     {
-        collider = GetComponent<Collider>();
+        collider = GetComponentInChildren<Collider>();
         collider.isTrigger = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         Dude dude = other.GetComponentInParent<Dude>();
-        if (dude != null && other.GetComponentInParent<Dude>().color == color)
+        if (dude != null && dude.color == color)
         {
             Destroy(other.transform.parent.gameObject);
             owner.score += dudeScore;

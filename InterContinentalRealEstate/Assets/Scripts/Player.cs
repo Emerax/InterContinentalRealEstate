@@ -35,7 +35,8 @@ public class Player : MonoBehaviour {
     }
 
     void UpdateOrbitalMovement() {
-        if (!missileLaunched) {
+        var missile = GameObject.Find("Missile");
+        if (missile == null || !(missile.GetComponent(typeof(Missile)) as Missile).IsFalling()) {
             float horizontalTranslation = Input.GetAxis("Mouse X") + Input.GetAxis("Joy X");
             float verticalTranslation = Input.GetAxis("Mouse Y") + Input.GetAxis("Joy Y");
 

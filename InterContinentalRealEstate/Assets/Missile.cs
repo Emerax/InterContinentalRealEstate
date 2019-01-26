@@ -87,7 +87,7 @@ public class Missile : MonoBehaviour {
 
         if(!isColliding && RatioToTop() > 0.9 && !IsFalling() && steerTime > 0) {
             steerTime -= Time.deltaTime;
-            velocity += new Vector3(1, 0, 0) 
+            velocity += initialDirection
                 * Time.deltaTime 
                 * steerAmount
                 * (float) Math.Sin(steerTime / steerDuration * Math.PI);
@@ -112,7 +112,7 @@ public class Missile : MonoBehaviour {
     public void OnCollision(Collider other) {
         if(IsFalling()) {
             GameObject clone = Instantiate(houseObject, transform.position, transform.rotation);
-            if(other.name == "House(Clone)")
+            if(other.GetComponentInParent<House>() != null)
             {
                 clone.transform.LookAt(other.transform.position);
             } else
@@ -141,7 +141,7 @@ public class Missile : MonoBehaviour {
         owner.ReportMissileHit();
     }
 
-    bool IsFalling() {
+    public bool IsFalling() {
         if(hasAttached || Vector3.Angle(transform.position, velocity) > 90) {
             hasAttached = true;
             return true;
