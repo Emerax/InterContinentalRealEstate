@@ -21,17 +21,20 @@ public class GameMasterScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        var dudes = FindObjectsOfType(typeof(Dude));
+        if(dudes.Length < dudesOnStart) {
+            spawnDudes(dudesOnStart - dudes.Length);
+        }
     }
 
     private void reset()
     {
-        spawnDudes();
+        spawnDudes(dudesOnStart);
     }
 
-    private void spawnDudes()
+    private void spawnDudes(int amount)
     {
-        for (int i = 0; i < dudesOnStart; i++){
+        for (int i = 0; i < amount; i++){
             int psi = rnd.Next(0, 180);
             int fi = rnd.Next(0, 360);
 
