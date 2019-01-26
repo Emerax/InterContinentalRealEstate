@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Missile : MonoBehaviour {
-    Vector3 velocity = new Vector3(0, 1, 0) * 0.6F;
+    public Vector3 velocity = new Vector3(1, 1, 1) * 0.6F;
     float g = 0.2F;
 
     float steering_amonut = 1F;
@@ -19,11 +20,15 @@ public class Missile : MonoBehaviour {
     public Material baseBlue;
     public Material detailBlue;
 
+    Constants.Color color;
+
     // Start is called before the first frame update
     void Start()
     {
         Screen.lockCursor = true;
-        setColor(Constants.Color.Blue);
+        Array values = Enum.GetValues(typeof(Constants.Color));
+        color = (Constants.Color)values.GetValue((int)UnityEngine.Random.Range(0, values.Length));
+        setColor(color);
     }
 
     void setColor(Constants.Color color)
@@ -87,11 +92,21 @@ public class Missile : MonoBehaviour {
         }
     }
 
-public void OnCollision(Collider other) {
-    GameObject clone = Instantiate(houseObject, transform.position, transform.rotation);
-    clone.transform.LookAt(new Vector3(0, 0, 0));
-    Destroy(this.gameObject);
-    Screen.lockCursor = false;
+    public void OnCollision(Collider other) {
+        if(IsFalling()) {
+            GameObject clone = Instantiate(houseObject, transform.position, transform.rotation);
+            if(other.name == "House(Clone)")
+            {
+                clone.transform.LookAt(other.transform.position);
+            } else
+            {
+                clone.transform.LookAt(new Vector3(0, 0, 0));
+            }
+            clone.GetComponent<House>().setColor(color);
+
+            Destroy(this.gameObject);
+            Screen.lockCursor = false;
+        }
     }
 
     public void OnDestroy() {

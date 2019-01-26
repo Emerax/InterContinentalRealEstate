@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2654091506841882617}
   - component: {fileID: 8443443061629931843}
+  - component: {fileID: 3536079710640029345}
+  - component: {fileID: 8755311122797760479}
   m_Layer: 0
   m_Name: House
   m_TagString: Untagged
@@ -28,7 +30,7 @@ Transform:
   m_LocalPosition: {x: 1.48, y: 0.373, z: -2.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5019000905898742491}
+  - {fileID: 3702233134653309347}
   - {fileID: 1003396325786570535}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,7 +56,36 @@ MonoBehaviour:
   baseBlue: {fileID: 2100000, guid: 12b5a474e24692b47894c0f3bf49b52b, type: 2}
   detailBlue: {fileID: 2100000, guid: 23fecc880e977ec4b802e5cff3af6003, type: 2}
   roofBlue: {fileID: 2100000, guid: 1b66e5a9d52886f4d8611a557924e9e6, type: 2}
---- !u!1 &5019000905898577659
+--- !u!65 &3536079710640029345
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3257379633878958209}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &8755311122797760479
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3257379633878958209}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!1 &3702233134653676931
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,9 +93,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5019000905898742491}
-  - component: {fileID: 5019000905895318267}
-  - component: {fileID: 5019000905896316987}
+  - component: {fileID: 3702233134653309347}
+  - component: {fileID: 3702233134650442115}
+  - component: {fileID: 3702233134651409219}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -72,35 +103,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5019000905898742491
+--- !u!4 &3702233134653309347
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5019000905898577659}
-  m_LocalRotation: {x: -0.6618843, y: 0.2763619, z: -0.27604154, w: 0.63979244}
+  m_GameObject: {fileID: 3702233134653676931}
+  m_LocalRotation: {x: -0.6618825, y: 0.2763631, z: -0.27604538, w: 0.63979214}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.5000001, y: 0.50000024, z: 0.5000001}
   m_Children: []
   m_Father: {fileID: 2654091506841882617}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 223.976, y: 272.30402, z: 87.724}
---- !u!33 &5019000905895318267
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &3702233134650442115
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5019000905898577659}
+  m_GameObject: {fileID: 3702233134653676931}
   m_Mesh: {fileID: 4300000, guid: 8b9b313f6ead1de4eb45a42d595fc65e, type: 3}
---- !u!23 &5019000905896316987
+--- !u!23 &3702233134651409219
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5019000905898577659}
+  m_GameObject: {fileID: 3702233134653676931}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -111,9 +142,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8b9b313f6ead1de4eb45a42d595fc65e, type: 3}
-  - {fileID: 2100004, guid: 8b9b313f6ead1de4eb45a42d595fc65e, type: 3}
-  - {fileID: 2100008, guid: 8b9b313f6ead1de4eb45a42d595fc65e, type: 3}
+  - {fileID: 2100010, guid: 8b9b313f6ead1de4eb45a42d595fc65e, type: 3}
+  - {fileID: 2100012, guid: 8b9b313f6ead1de4eb45a42d595fc65e, type: 3}
+  - {fileID: 2100014, guid: 8b9b313f6ead1de4eb45a42d595fc65e, type: 3}
   - {fileID: 2100006, guid: 8b9b313f6ead1de4eb45a42d595fc65e, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
