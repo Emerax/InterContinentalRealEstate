@@ -4836,7 +4836,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 6
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &874995704486592705
@@ -4980,6 +4980,7 @@ MonoBehaviour:
   houseObject: {fileID: 3257379633878958209, guid: 81b48ef68ced20d2ea8042641f070534,
     type: 3}
   hasAttached: 0
+  initialDirection: {x: 0, y: 0, z: 0}
   baseRed: {fileID: 2100000, guid: 478eee69485e72243b5f89fbe5860a49, type: 2}
   detailRed: {fileID: 2100000, guid: 2a40a19f423e62a4b86c31f0ac0e16c8, type: 2}
   baseGreen: {fileID: 2100000, guid: 8c5e19ac6b5b21d47b6f975fc6579f2f, type: 2}
