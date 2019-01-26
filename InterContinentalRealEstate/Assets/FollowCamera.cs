@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    Vector3 initialPosition;
-    Vector3 initialRotation;
     Vector3 crashPosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        initialPosition = transform.position;
-        initialRotation = transform.eulerAngles;
     }
 
     // Update is called once per frame
@@ -20,7 +16,11 @@ public class FollowCamera : MonoBehaviour
     {
         // Find the missile object
         var missile = GameObject.FindWithTag("Missile");
+        var player = GameObject.Find("Player");
         
+        var playerPosition = player.transform.position;
+        var playerRotation = player.transform.eulerAngles;
+        var playerRotationQuat = player.transform.rotation;
         if(missile != null) {
             var missileComponent = missile.GetComponent(typeof(Missile)) as Missile;
             var distance = missileComponent.hasAttached ? 0 : (float) System.Math.Sqrt(
@@ -28,16 +28,18 @@ public class FollowCamera : MonoBehaviour
             );
             var targetPosition = missile.transform.Find("CameraSeat").transform.position;
 
-            transform.position = initialPosition * (distance)
+            transform.position = playerPosition * (distance)
                      + targetPosition * (1 - distance);
-            transform.eulerAngles = initialRotation * (distance)
+            transform.eulerAngles = playerRotation * (distance)
                      + missile.transform.eulerAngles * (1 - distance);
             crashPosition = transform.position;
         }
         else {
-            transform.position -= (transform.position - initialPosition) * Time.deltaTime;
-            // transform.eulerAngles -= (transform.eulerAngles - initialRotation) * Time.deltaTime;
-            transform.LookAt(crashPosition);
+            transform.position = playerPosition;
+            transform.rotation = playerRotationQuat;
+            // transform.position -= (transform.position - playerPosition) * Time.deltaTime;
+            // // transform.eulerAngles -= (transform.eulerAngles - initialRotation) * Time.deltaTime;
+            // transform.LookAt(crashPosition);
         }
     }
 }
