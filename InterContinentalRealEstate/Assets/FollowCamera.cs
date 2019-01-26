@@ -21,7 +21,7 @@ public class FollowCamera : MonoBehaviour
         
         if(missile != null) {
             var missileComponent = missile.GetComponent(typeof(Missile)) as Missile;
-            var distance = (float) System.Math.Sqrt(
+            var distance = missileComponent.hasAttached ? 0 : (float) System.Math.Sqrt(
                 System.Math.Sqrt(missileComponent.CameraDistanceRatio())
             );
             var targetPosition = missile.transform.Find("CameraSeat").transform.position;

@@ -10,6 +10,7 @@ public class Missile : MonoBehaviour
     float steering_amonut = 1F;
 
     public GameObject houseObject;
+    public bool hasAttached = false;
 
     // Start is called before the first frame update
     void Start()
@@ -36,9 +37,10 @@ public class Missile : MonoBehaviour
 
         transform.rotation = Quaternion.LookRotation(velocity, transform.position);
 
-        if(IsFalling()) {
-            float xMove = Input.GetAxis("Mouse X");
-            float yMove = Input.GetAxis("Mouse Y");
+        if(IsFalling() || hasAttached) {
+            hasAttached = true;
+            float xMove = Input.GetAxis("Mouse X") + Input.GetAxis("Joy X");
+            float yMove = Input.GetAxis("Mouse Y") + Input.GetAxis("Joy Y");
 
             // Build a new local vector to use for rotateTo
             var velocityLocal = new Vector3(xMove, yMove, 1);
