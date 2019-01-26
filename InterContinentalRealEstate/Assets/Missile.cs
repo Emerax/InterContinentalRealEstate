@@ -62,7 +62,6 @@ public class Missile : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        Debug.Log(IsFalling());
         // In standalone player we have to provide our own key
         // input for unlocking the cursor
         if (Input.GetKeyDown("escape")) {
