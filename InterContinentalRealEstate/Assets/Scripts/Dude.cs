@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,12 +18,15 @@ public class Dude : MonoBehaviour
     private Rigidbody rb;
 
     public float speed;
+    Constants.Color color;
 
     void Start()
     {
         timeUntilNewDirection = 0.0f;
         rb = GetComponent<Rigidbody>();
-        setColor(Constants.Color.Blue);
+        Array values = Enum.GetValues(typeof(Constants.Color));
+        color = (Constants.Color)values.GetValue((int)UnityEngine.Random.Range(0, values.Length));
+        setColor(color);
     }
 
     void setColor(Constants.Color color)
@@ -51,12 +55,12 @@ public class Dude : MonoBehaviour
             float maxAngle = 2.5f * speed;
             float maxTime = 5.0f;
 
-            float angleA = (Random.value * 2.0f - 1.0f) * maxAngle;
-            float angleB = (Random.value * 2.0f - 1.0f) * maxAngle;
-            float angleC = (Random.value * 2.0f - 1.0f) * maxAngle;
+            float angleA = (UnityEngine.Random.value * 2.0f - 1.0f) * maxAngle;
+            float angleB = (UnityEngine.Random.value * 2.0f - 1.0f) * maxAngle;
+            float angleC = (UnityEngine.Random.value * 2.0f - 1.0f) * maxAngle;
 
             direction = Quaternion.Euler(angleA, angleB, angleC);
-            timeUntilNewDirection = Random.value * maxTime;
+            timeUntilNewDirection = UnityEngine.Random.value * maxTime;
         }
 
         // Move in direction
