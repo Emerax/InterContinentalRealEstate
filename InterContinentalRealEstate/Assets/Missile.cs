@@ -120,6 +120,7 @@ public class Missile : MonoBehaviour {
                 clone.transform.LookAt(new Vector3(0, 0, 0));
             }
             clone.GetComponent<House>().setColor(color);
+            clone.GetComponent<House>().owner = owner;
 
             //Make particles linger after the missile is destroyed.
             GameObject particles = transform.Find("Particle System").gameObject;

@@ -5,6 +5,8 @@ using System;
 
 public class House : MonoBehaviour
 {
+    public int dudeScore = 1;
+
     public Material baseRed;
     public Material detailRed;
     public Material roofRed;
@@ -22,6 +24,25 @@ public class House : MonoBehaviour
     const float duration = 1;
 
     private Constants.Color color;
+    public Player owner;
+
+    private Collider collider;
+
+    void Start()
+    {
+        collider = GetComponent<Collider>();
+        collider.isTrigger = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Dude dude = other.GetComponentInParent<Dude>();
+        if (dude != null && other.GetComponentInParent<Dude>().color == color)
+        {
+            Destroy(other.transform.parent.gameObject);
+            owner.score += dudeScore;
+        }
+    }
 
     public void setColor(Constants.Color color)
     {
@@ -60,11 +81,17 @@ public class House : MonoBehaviour
     }
 
     float EaseOutElastic(float t) {
+        float elasticityTime = 1.0f;
+        if (t >= elasticityTime)
+        {
+            collider.isTrigger = false;
+        }
+
         if(t == 0) {
             t = 0.001F;
         }
         var sinVal = (float) Math.Sin(Math.PI * 8 * t);
-        var timeClamped = Math.Min(t, 1);
+        var timeClamped = Math.Min(t, elasticityTime);
         var val = Math.Min(timeClamped * 4, 1)+ sinVal * (1 - timeClamped) * 0.25;
         return (float) val;
     }

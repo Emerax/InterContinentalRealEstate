@@ -36,8 +36,8 @@ public class Player : MonoBehaviour {
 
     void UpdateOrbitalMovement() {
         if (!missileLaunched) {
-            float horizontalTranslation = Input.GetAxis("Mouse X");
-            float verticalTranslation = Input.GetAxis("Mouse Y");
+            float horizontalTranslation = Input.GetAxis("Mouse X") + Input.GetAxis("Joy X");
+            float verticalTranslation = Input.GetAxis("Mouse Y") + Input.GetAxis("Joy Y");
 
             float movement = Input.GetAxisRaw("Mouse ScrollWheel");
 
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour {
     }
 
     void ReadInput() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButton("Fire1")) {
             if (!missileLaunched) {
                 //FIRE ZHE MIZZILEZ
                 GameObject missile = Instantiate(
