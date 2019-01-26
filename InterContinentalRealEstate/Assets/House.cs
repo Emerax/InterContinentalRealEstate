@@ -5,6 +5,8 @@ using System;
 
 public class House : MonoBehaviour
 {
+    public int dudeScore = 1;
+
     public Material baseRed;
     public Material detailRed;
     public Material roofRed;
@@ -22,6 +24,7 @@ public class House : MonoBehaviour
     const float duration = 1;
 
     private Constants.Color color;
+    public Player owner;
 
     private Collider collider;
 
@@ -29,6 +32,15 @@ public class House : MonoBehaviour
     {
         collider = GetComponent<Collider>();
         collider.isTrigger = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponentInParent<Dude>().color == color)
+        {
+            Destroy(other.transform.parent.gameObject);
+            owner.score += dudeScore;
+        }
     }
 
     public void setColor(Constants.Color color)
