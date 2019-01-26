@@ -18,7 +18,7 @@ public class Dude : MonoBehaviour
     private Rigidbody rb;
 
     public float speed;
-    Constants.Color color;
+    public Constants.Color color;
 
     void Start()
     {
@@ -31,6 +31,8 @@ public class Dude : MonoBehaviour
 
     void setColor(Constants.Color color)
     {
+        this.color = color;
+
         var renderer = GetComponentInChildren<Renderer>();
         var materials = renderer.sharedMaterials;
         switch (color) {

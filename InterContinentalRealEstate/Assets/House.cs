@@ -23,6 +23,14 @@ public class House : MonoBehaviour
 
     private Constants.Color color;
 
+    private Collider collider;
+
+    void Start()
+    {
+        collider = GetComponent<Collider>();
+        collider.isTrigger = true;
+    }
+
     public void setColor(Constants.Color color)
     {
         this.color = color;
@@ -60,11 +68,17 @@ public class House : MonoBehaviour
     }
 
     float EaseOutElastic(float t) {
+        float elasticityTime = 1.0f;
+        if (t >= elasticityTime)
+        {
+            collider.isTrigger = false;
+        }
+
         if(t == 0) {
             t = 0.001F;
         }
         var sinVal = (float) Math.Sin(Math.PI * 8 * t);
-        var timeClamped = Math.Min(t, 1);
+        var timeClamped = Math.Min(t, elasticityTime);
         var val = Math.Min(timeClamped * 4, 1)+ sinVal * (1 - timeClamped) * 0.25;
         return (float) val;
     }
