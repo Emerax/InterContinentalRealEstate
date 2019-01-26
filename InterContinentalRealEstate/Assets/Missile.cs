@@ -9,6 +9,7 @@ public class Missile : MonoBehaviour
 
     float steering_amonut = 1F;
 
+    public GameObject houseObject;
     public bool hasAttached = false;
 
     // Start is called before the first frame update
@@ -57,6 +58,7 @@ public class Missile : MonoBehaviour
     }
 
     public void OnCollision(Collider other) {
+        GameObject clone = Instantiate(houseObject, transform.position, transform.rotation);
         Destroy(this.gameObject);
     }
 

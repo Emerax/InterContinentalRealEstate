@@ -31,5 +31,9 @@ public class FollowCamera : MonoBehaviour
             transform.eulerAngles = initialRotation * (distance)
                      + missile.transform.eulerAngles * (1 - distance);
         }
+        else {
+            transform.position = initialPosition;
+            transform.eulerAngles = initialRotation;
+        }
     }
 }
