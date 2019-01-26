@@ -6,6 +6,8 @@ public class FollowCamera : MonoBehaviour
 {
     Vector3 initialPosition;
     Vector3 initialRotation;
+    Vector3 crashPosition;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +32,12 @@ public class FollowCamera : MonoBehaviour
                      + targetPosition * (1 - distance);
             transform.eulerAngles = initialRotation * (distance)
                      + missile.transform.eulerAngles * (1 - distance);
+            crashPosition = transform.position;
         }
         else {
-            transform.position = initialPosition;
-            transform.eulerAngles = initialRotation;
+            transform.position -= (transform.position - initialPosition) * Time.deltaTime;
+            // transform.eulerAngles -= (transform.eulerAngles - initialRotation) * Time.deltaTime;
+            transform.LookAt(crashPosition);
         }
     }
 }

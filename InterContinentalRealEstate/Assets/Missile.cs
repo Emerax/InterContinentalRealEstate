@@ -39,8 +39,10 @@ public class Missile : MonoBehaviour
 
         if(IsFalling() || hasAttached) {
             hasAttached = true;
-            float xMove = Input.GetAxis("Mouse X") + Input.GetAxis("Joy X");
-            float yMove = Input.GetAxis("Mouse Y") + Input.GetAxis("Joy Y");
+            float xMove = Input.GetAxis("Mouse X");// + Input.GetAxis("Joy X");
+            float yMove = Input.GetAxis("Mouse Y");// + Input.GetAxis("Joy Y");
+            Debug.Log(xMove);
+            Debug.Log(yMove);
 
             // Build a new local vector to use for rotateTo
             var velocityLocal = new Vector3(xMove, yMove, 1);
@@ -59,7 +61,9 @@ public class Missile : MonoBehaviour
 
     public void OnCollision(Collider other) {
         GameObject clone = Instantiate(houseObject, transform.position, transform.rotation);
+        clone.transform.LookAt(new Vector3(0, 0, 0));
         Destroy(this.gameObject);
+        Screen.lockCursor = false;
     }
 
     bool IsFalling() {

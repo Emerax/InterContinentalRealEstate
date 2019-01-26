@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 142657437900730358}
   - component: {fileID: 142657437900730357}
   - component: {fileID: 6663512758694530967}
+  - component: {fileID: 2578333691926974179}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Home_Planet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,3 +105,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8417da5c13918af4da9e0f3bad9bd523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GravityConstant: 0
+--- !u!54 &2578333691926974179
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142657437900730356}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
