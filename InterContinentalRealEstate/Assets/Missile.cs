@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Missile : MonoBehaviour {
     public Vector3 velocity = new Vector3(1, 1, 1) * 0.6F;
@@ -62,11 +61,11 @@ public class Missile : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        Debug.Log(IsFalling());
         // In standalone player we have to provide our own key
         // input for unlocking the cursor
         if (Input.GetKeyDown("escape")) {
-            Screen.lockCursor = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         Vector3 acceleration = transform.position.normalized * -g * Time.deltaTime;
@@ -113,7 +112,7 @@ public class Missile : MonoBehaviour {
     public void OnCollision(Collider other) {
         if(IsFalling()) {
             GameObject clone = Instantiate(houseObject, transform.position, transform.rotation);
-            if(other.name == "House(Clone)")
+            if(other.GetComponentInParent<House>() != null)
             {
                 clone.transform.LookAt(other.transform.position);
             } else
@@ -121,8 +120,15 @@ public class Missile : MonoBehaviour {
                 clone.transform.LookAt(new Vector3(0, 0, 0));
             }
             clone.GetComponent<House>().setColor(color);
+            clone.GetComponent<House>().owner = owner;
 
-            Destroy(this.gameObject);
+            //Make particles linger after the missile is destroyed.
+            GameObject particles = transform.Find("Particle System").gameObject;
+            particles.GetComponent<ParticleSystem>().Stop();
+            particles.transform.parent = null;
+            Destroy(particles, 6);
+
+            Destroy(gameObject);
             Screen.lockCursor = false;
         }
         isColliding = true;
