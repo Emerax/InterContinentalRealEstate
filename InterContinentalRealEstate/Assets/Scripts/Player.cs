@@ -55,7 +55,12 @@ public class Player : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space)) {
             if (!missileLaunched) {
                 //FIRE ZHE MIZZILEZ
-                GameObject missile = Instantiate(missilePrefab, silo.transform.position + Vector3.up, silo.transform.rotation);
+                GameObject missile = Instantiate(
+                    missilePrefab,
+                    silo.transform.position,
+                    silo.transform.rotation
+                );
+                missile.GetComponent<Missile>().velocity = silo.transform.position.normalized;
                 missile.GetComponent<Missile>().SetOwner(this);
                 missileLaunched = true;
             }
