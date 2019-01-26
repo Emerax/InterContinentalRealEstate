@@ -35,8 +35,8 @@ public class Missile : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(velocity, transform.position);
 
         if(IsFalling()) {
-            float xMove = Input.GetAxis("Mouse X");
-            float yMove = Input.GetAxis("Mouse Y");
+            float xMove = Input.GetAxis("Mouse X") + Input.GetAxis("Joy X");
+            float yMove = Input.GetAxis("Mouse Y") + Input.GetAxis("Joy Y");
 
             // Build a new local vector to use for rotateTo
             var velocityLocal = new Vector3(xMove, yMove, 1);
