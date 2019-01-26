@@ -95,7 +95,14 @@ public class Missile : MonoBehaviour {
     public void OnCollision(Collider other) {
         if(IsFalling()) {
             GameObject clone = Instantiate(houseObject, transform.position, transform.rotation);
-            clone.transform.LookAt(new Vector3(0, 0, 0));
+            if(other.name == "House(Clone)")
+            {
+                clone.transform.LookAt(other.transform.position);
+            } else
+            {
+                clone.transform.LookAt(new Vector3(0, 0, 0));
+            }
+
             Destroy(this.gameObject);
             Screen.lockCursor = false;
         }
