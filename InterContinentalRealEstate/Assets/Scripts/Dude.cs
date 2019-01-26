@@ -6,15 +6,39 @@ public class Dude : MonoBehaviour
 {
     public Vector3 planetCenter = Vector3.zero;
 
+    public Material clothesRed;
+    public Material clothesGreen;
+    public Material clothesBlue;
+
     private float timeUntilNewDirection = 0.0f;
     private Quaternion direction = Quaternion.Euler(0, 0, 0);
 
+    private int clothesMaterialID = 0;
     private Rigidbody rb;
-    
+
     void Start()
     {
         timeUntilNewDirection = 0.0f;
         rb = GetComponent<Rigidbody>();
+        setColor(Constants.Color.Blue);
+    }
+
+    void setColor(Constants.Color color)
+    {
+        var renderer = GetComponentInChildren<Renderer>();
+        var materials = renderer.sharedMaterials;
+        switch (color) {
+            case Constants.Color.Red:
+                materials[1] = clothesRed;
+                break;
+            case Constants.Color.Green:
+                materials[1] = clothesGreen;
+                break;
+            case Constants.Color.Blue:
+                materials[1] = clothesBlue;
+                break;
+        }
+        renderer.sharedMaterials = materials;
     }
 
     void Update()
