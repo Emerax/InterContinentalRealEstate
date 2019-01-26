@@ -21,4 +21,9 @@ public class MissileCollider : MonoBehaviour
             .GetComponent(typeof(Missile)) as Missile;
         parentMissile.OnCollision(other);
     }
+    void OnTriggerExit(Collider other) {
+        var parentMissile = transform.parent.gameObject
+            .GetComponent(typeof(Missile)) as Missile;
+        parentMissile.OnCollisionStop(other);
+    }
 }

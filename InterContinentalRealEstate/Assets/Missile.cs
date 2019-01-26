@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Missile : MonoBehaviour {
     public Vector3 velocity = new Vector3(1, 1, 1) * 0.6F;
@@ -9,9 +10,15 @@ public class Missile : MonoBehaviour {
 
     float steering_amonut = 1F;
     Player owner;
+    bool isColliding = false;
+    const float steerDuration = 1.5f;
+    float steerTime = steerDuration;
+    const float steerAmount = 0.6f;
 
     public GameObject houseObject;
     public bool hasAttached = false;
+    public Vector3 initialDirection;
+
 
     public Material baseRed;
     public Material detailRed;
@@ -76,20 +83,31 @@ public class Missile : MonoBehaviour {
             hasAttached = true;
             float xMove = Input.GetAxis("Mouse X") + Input.GetAxis("Joy X");
             float yMove = Input.GetAxis("Mouse Y") + Input.GetAxis("Joy Y");
-
-            // Build a new local vector to use for rotateTo
-            var velocityLocal = new Vector3(xMove, yMove, 1);
-
-            // Transform that vector into the global space
-            var targetVelocityWorld = transform.localToWorldMatrix * velocityLocal;
-
-            velocity = Vector3.RotateTowards(
-                velocity,
-                targetVelocityWorld,
-                steering_amonut * Time.deltaTime,
-                0.0F
-            );
+            steer(xMove, yMove);
         }
+
+        if(!isColliding && RatioToTop() > 0.9 && !IsFalling() && steerTime > 0) {
+            steerTime -= Time.deltaTime;
+            velocity += new Vector3(1, 0, 0) 
+                * Time.deltaTime 
+                * steerAmount
+                * (float) Math.Sin(steerTime / steerDuration * Math.PI);
+        }
+    }
+
+    void steer(float xMove, float yMove) {
+        // Build a new local vector to use for rotateTo
+        var velocityLocal = new Vector3(xMove, yMove, 1);
+
+        // Transform that vector into the global space
+        var targetVelocityWorld = transform.localToWorldMatrix * velocityLocal;
+
+        velocity = Vector3.RotateTowards(
+            velocity,
+            targetVelocityWorld,
+            steering_amonut * Time.deltaTime,
+            0.0F
+        );
     }
 
     public void OnCollision(Collider other) {
@@ -107,6 +125,10 @@ public class Missile : MonoBehaviour {
             Destroy(this.gameObject);
             Screen.lockCursor = false;
         }
+        isColliding = true;
+    }
+    public void OnCollisionStop(Collider other) {
+        isColliding = false;
     }
 
     public void OnDestroy() {
@@ -137,5 +159,14 @@ public class Missile : MonoBehaviour {
 
     public void SetOwner(Player player) {
         owner = player;
+    }
+
+    void SpinRocket() {
+        if(!isColliding && RatioToTop() > 0.9 && !IsFalling()) {
+            var velocityLocal = new Vector3(-1, 0, 0) * Time.deltaTime;
+            // Transform that vector into the global space
+            Vector3 targetVelocityWorld = transform.localToWorldMatrix * velocityLocal;
+            velocity += targetVelocityWorld;
+        }
     }
 }
