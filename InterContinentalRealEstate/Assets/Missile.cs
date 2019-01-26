@@ -102,6 +102,7 @@ public class Missile : MonoBehaviour {
             {
                 clone.transform.LookAt(new Vector3(0, 0, 0));
             }
+            clone.GetComponent<House>().setColor(color);
 
             Destroy(this.gameObject);
             Screen.lockCursor = false;
