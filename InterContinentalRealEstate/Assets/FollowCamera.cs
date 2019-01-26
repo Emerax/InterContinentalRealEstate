@@ -9,6 +9,7 @@ public class FollowCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     // Update is called once per frame
@@ -37,6 +38,11 @@ public class FollowCamera : MonoBehaviour
         else {
             transform.position = playerPosition;
             transform.rotation = playerRotationQuat;
+            Screen.lockCursor = true;
+            if (Input.GetKeyDown("escape"))
+            {
+                Screen.lockCursor = false;
+            }
             // transform.position -= (transform.position - playerPosition) * Time.deltaTime;
             // // transform.eulerAngles -= (transform.eulerAngles - initialRotation) * Time.deltaTime;
             // transform.LookAt(crashPosition);
