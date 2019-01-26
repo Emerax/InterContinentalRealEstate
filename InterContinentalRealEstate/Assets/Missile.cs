@@ -112,7 +112,7 @@ public class Missile : MonoBehaviour {
     public void OnCollision(Collider other) {
         if(IsFalling()) {
             GameObject clone = Instantiate(houseObject, transform.position, transform.rotation);
-            if(other.name == "House(Clone)")
+            if(other.GetComponentInParent<House>() != null)
             {
                 clone.transform.LookAt(other.transform.position);
             } else
