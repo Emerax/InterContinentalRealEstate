@@ -87,7 +87,7 @@ public class Missile : MonoBehaviour {
 
         if(!isColliding && RatioToTop() > 0.9 && !IsFalling() && steerTime > 0) {
             steerTime -= Time.deltaTime;
-            velocity += new Vector3(1, 0, 0) 
+            velocity += initialDirection
                 * Time.deltaTime 
                 * steerAmount
                 * (float) Math.Sin(steerTime / steerDuration * Math.PI);
