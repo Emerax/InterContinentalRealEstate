@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -26,11 +27,15 @@ public class Missile : MonoBehaviour {
     public Material baseBlue;
     public Material detailBlue;
 
+    Constants.Color color;
+
     // Start is called before the first frame update
     void Start()
     {
         Screen.lockCursor = true;
-        setColor(Constants.Color.Blue);
+        Array values = Enum.GetValues(typeof(Constants.Color));
+        color = (Constants.Color)values.GetValue((int)UnityEngine.Random.Range(0, values.Length));
+        setColor(color);
     }
 
     void setColor(Constants.Color color)
@@ -108,7 +113,15 @@ public class Missile : MonoBehaviour {
     public void OnCollision(Collider other) {
         if(IsFalling()) {
             GameObject clone = Instantiate(houseObject, transform.position, transform.rotation);
-            clone.transform.LookAt(new Vector3(0, 0, 0));
+            if(other.name == "House(Clone)")
+            {
+                clone.transform.LookAt(other.transform.position);
+            } else
+            {
+                clone.transform.LookAt(new Vector3(0, 0, 0));
+            }
+            clone.GetComponent<House>().setColor(color);
+
             Destroy(this.gameObject);
             Screen.lockCursor = false;
         }

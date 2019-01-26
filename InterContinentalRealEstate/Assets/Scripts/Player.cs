@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
     public float horizontalCameraSpeed;
@@ -10,17 +11,27 @@ public class Player : MonoBehaviour {
     public GameObject planet;
     public GameObject silo;
 
+    public int score = 0;
+
     public GameObject missilePrefab;
+
     private bool missileLaunched = false;
+
+    private Canvas canvas;
+    private Text scoreText;
 
     // Start is called before the first frame update
     void Start() {
+        canvas = transform.Find("Canvas").GetComponent<Canvas>();
+        scoreText = canvas.transform.Find("ScoreText").GetComponent<Text>();
+        scoreText.text = "Score: " + score;
     }
 
     // Update is called once per frame
     void Update() {
         UpdateOrbitalMovement();
         ReadInput();
+        UpdateUI();
     }
 
     void UpdateOrbitalMovement() {
@@ -67,6 +78,10 @@ public class Player : MonoBehaviour {
                 missileLaunched = true;
             }
         }
+    }
+
+    void UpdateUI() {
+        scoreText.text = "Score: " + score;
     }
 
     public void ReportMissileHit() {

@@ -1,7 +1,7 @@
 # Blender MTL File: 'House.blend'
 # Material Count: 4
 
-newmtl Base
+newmtl BaseRed
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.000000 0.016975
@@ -11,7 +11,7 @@ Ni 1.000000
 d 1.000000
 illum 2
 
-newmtl Details
+newmtl DetailsRed
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
 Kd 0.172688 0.001700 0.000000
@@ -21,10 +21,10 @@ Ni 1.000000
 d 1.000000
 illum 2
 
-newmtl Roof
+newmtl RoofRed
 Ns 96.078431
 Ka 1.000000 1.000000 1.000000
-Kd 0.312153 0.000000 0.008400
+Kd 0.313258 0.000000 0.008264
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.000000

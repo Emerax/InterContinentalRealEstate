@@ -21,14 +21,12 @@ public class House : MonoBehaviour
     float time = 0;
     const float duration = 1;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        setColor(Constants.Color.Blue);
-    }
+    private Constants.Color color;
 
-    void setColor(Constants.Color color)
+    public void setColor(Constants.Color color)
     {
+        this.color = color;
+
         var renderer = GetComponentInChildren<Renderer>();
         var materials = renderer.sharedMaterials;
         switch (color)
