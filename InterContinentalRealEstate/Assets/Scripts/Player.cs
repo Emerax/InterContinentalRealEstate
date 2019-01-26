@@ -60,8 +60,10 @@ public class Player : MonoBehaviour {
                     silo.transform.position,
                     silo.transform.rotation
                 );
-                missile.GetComponent<Missile>().velocity = silo.transform.position.normalized;
-                missile.GetComponent<Missile>().SetOwner(this);
+                var component = missile.GetComponent<Missile>();
+                component.velocity = silo.transform.position.normalized;
+                component.initialDirection = silo.transform.TransformVector(new Vector3(1, 0, 0));
+                component.SetOwner(this);
                 missileLaunched = true;
             }
         }
