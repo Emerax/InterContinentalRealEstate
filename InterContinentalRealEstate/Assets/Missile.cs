@@ -4,19 +4,27 @@ using UnityEngine;
 
 public class Missile : MonoBehaviour
 {
-    Vector3 velocity = Vector3.one * 0.1F;
+    Vector3 velocity = new Vector3(0, 0, 1) * 0.4F;
     float g = 0.2F;
+
+    float steering_amonut = 1F;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Screen.lockCursor = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 acceleration = transform.position.normalized * (-g) * Time.deltaTime;
+        // In standalone player we have to provide our own key
+        // input for unlocking the cursor
+        if (Input.GetKeyDown("escape")) {
+            Screen.lockCursor = false;
+        }
+
+        Vector3 acceleration = transform.position.normalized * -g * Time.deltaTime;
 
         velocity += acceleration;
 
@@ -25,5 +33,21 @@ public class Missile : MonoBehaviour
         transform.LookAt(velocity);
 
         transform.rotation = Quaternion.LookRotation(velocity, transform.position);
+
+        float xMove = Input.GetAxis("Mouse X");
+        float yMove = Input.GetAxis("Mouse Y");
+
+        // Build a new local vector to use for rotateTo
+        var velocityLocal = new Vector3(xMove, yMove, 1);
+
+        // Transform that vector into the global space
+        var targetVelocityWorld = transform.localToWorldMatrix * velocityLocal;
+
+        velocity = Vector3.RotateTowards(
+            velocity,
+            targetVelocityWorld,
+            steering_amonut * Time.deltaTime,
+            0.0F
+        );
     }
 }
