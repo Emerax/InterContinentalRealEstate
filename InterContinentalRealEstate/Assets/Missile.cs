@@ -13,8 +13,9 @@ public class Missile : MonoBehaviour {
     const float steerDuration = 1.5f;
     float steerTime = steerDuration;
     const float steerAmount = 0.6f;
+    public float maxFuel = 1000F;
     private float fuel;
-    const float fuelConsumption = 50;
+    const float fuelConsumption = 40;
     private bool hasFuel = false;
     bool boosting = false;
     bool hasIncressedParticles = false;
@@ -36,11 +37,12 @@ public class Missile : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        Screen.lockCursor = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         Array values = Enum.GetValues(typeof(Constants.Color));
         color = (Constants.Color)values.GetValue((int)UnityEngine.Random.Range(0, values.Length));
         setColor(color);
-        fuel = 1000;
+        fuel = 1000F;
         hasFuel = true;
     }
 
@@ -101,6 +103,10 @@ public class Missile : MonoBehaviour {
             }
             steer(xMove, yMove);
             fuel -= Time.deltaTime * fuelConsumption * (boosting ? 4:1);
+
+            Debug.Log("Max: " + maxFuel + " current: " + fuel);
+
+            owner.ReportFuelLevel(fuel / maxFuel);
             
             if (fuel < 0)
             {

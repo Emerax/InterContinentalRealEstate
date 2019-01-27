@@ -4979,6 +4979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocity: {x: 0, y: 0.6, z: 0}
   owner: {fileID: 0}
+  maxFuel: 1000
   houseObject: {fileID: 3257379633878958209, guid: 81b48ef68ced20d2ea8042641f070534,
     type: 3}
   hasAttached: 0

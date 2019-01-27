@@ -19,6 +19,7 @@ public class Player : MonoBehaviour {
 
     private Canvas canvas;
     private Text scoreText;
+    private Image fuelBar;
 
     // Start is called before the first frame update
     void Start() {
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour {
         canvas = transform.Find("Canvas").GetComponent<Canvas>();
         scoreText = canvas.transform.Find("ScoreText").GetComponent<Text>();
         scoreText.text = "Score: " + score;
+        fuelBar = canvas.transform.Find("FuelBar").GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -51,7 +53,7 @@ public class Player : MonoBehaviour {
         if (missile == null || !(missile.GetComponent(typeof(Missile)) as Missile).IsFalling()) {
             // Player 2
             float horizontalTranslation = Input.GetAxis("X2");
-            float verticalTranslation = Input.GetAxis("X2");
+            float verticalTranslation = Input.GetAxis("Y2");
 
             // Player 1
             if(gameObject.name == "Player") {
@@ -103,5 +105,11 @@ public class Player : MonoBehaviour {
 
     public void ReportMissileHit() {
         missileLaunched = false;
+        fuelBar.fillAmount = 1;
+    }
+
+    public void ReportFuelLevel(float level) {
+        Debug.Log("Level: " + level);
+        fuelBar.fillAmount = level;
     }
 }
