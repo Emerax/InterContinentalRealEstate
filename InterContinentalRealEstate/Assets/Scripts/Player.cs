@@ -19,12 +19,14 @@ public class Player : MonoBehaviour {
 
     private Canvas canvas;
     private Text scoreText;
+    private Image fuelBar;
 
     // Start is called before the first frame update
     void Start() {
         canvas = transform.Find("Canvas").GetComponent<Canvas>();
         scoreText = canvas.transform.Find("ScoreText").GetComponent<Text>();
         scoreText.text = "Score: " + score;
+        fuelBar = canvas.transform.Find("FuelBar").GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -98,6 +100,7 @@ public class Player : MonoBehaviour {
 
     void UpdateUI() {
         scoreText.text = "Score: " + score;
+        fuelBar.fillAmount = Random.value;
     }
 
     public void ReportMissileHit() {
