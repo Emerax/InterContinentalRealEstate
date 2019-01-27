@@ -44,27 +44,14 @@ public class Player : MonoBehaviour {
         }
 
         if (missile == null || !(missile.GetComponent(typeof(Missile)) as Missile).IsFalling()) {
-            float horizontalTranslation = Input.GetAxis("Mouse X");
-            float verticalTranslation = Input.GetAxis("Mouse Y");
+            // Player 2
+            float horizontalTranslation = Input.GetAxis("X2");
+            float verticalTranslation = Input.GetAxis("X2");
+
+            // Player 1
             if(gameObject.name == "Player") {
-                horizontalTranslation = Input.GetAxis("Joy X");
-                verticalTranslation = Input.GetAxis("Joy Y");
-            }
-
-            float movement = Input.GetAxisRaw("Mouse ScrollWheel");
-
-
-            Vector3 direction = (planet.transform.position - transform.position).normalized;
-            float distance = Vector3.Distance(transform.position, planet.transform.position);
-
-            if (movement > 0 && distance > minDist) {
-                transform.Translate(direction * movementSpeed * movement);
-            } else if (movement < 0 && distance < maxDist) {
-                transform.Translate(direction * movementSpeed * movement);
-            }
-
-
-            if (distance > minDist && distance < maxDist) {
+                horizontalTranslation = Input.GetAxis("X1");
+                verticalTranslation = Input.GetAxis("Y1");
             }
 
             transform.RotateAround(planet.transform.position, Vector3.up, horizontalTranslation * Time.deltaTime * horizontalCameraSpeed);
@@ -75,9 +62,12 @@ public class Player : MonoBehaviour {
     }
 
     void ReadInput() {
-        bool fire = Input.GetKeyDown(KeyCode.Space) || Input.GetButton("Fire2");
+        // Player 2
+        bool fire = Input.GetButton("Launch2");
+
+        // Player 1
         if(gameObject.name == "Player") {
-            fire = Input.GetButton("Fire1");
+            fire = Input.GetButton("Launch1");
         }
         if (fire) {
             if (!missileLaunched) {
