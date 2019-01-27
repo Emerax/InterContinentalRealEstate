@@ -15,7 +15,7 @@ public class Missile : MonoBehaviour {
     const float steerAmount = 0.6f;
     public float maxFuel = 1000F;
     private float fuel;
-    const float fuelConsumption = 50;
+    const float fuelConsumption = 40;
     private bool hasFuel = false;
     bool boosting = false;
     bool hasIncressedParticles = false;
