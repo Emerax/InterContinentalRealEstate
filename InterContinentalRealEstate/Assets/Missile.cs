@@ -19,6 +19,8 @@ public class Missile : MonoBehaviour {
     private bool hasFuel = false;
     bool boosting = false;
     bool hasIncressedParticles = false;
+    public float boostAmount;
+    public float boostCost;
 
     public GameObject houseObject;
     public bool hasAttached = false;
@@ -82,7 +84,7 @@ public class Missile : MonoBehaviour {
 
         velocity += acceleration;
 
-        transform.position += velocity * Time.deltaTime * (boosting ? 10 : 1);
+        transform.position += velocity * Time.deltaTime * (boosting ? boostAmount : 1);
 
         transform.LookAt(velocity);
 
@@ -102,7 +104,7 @@ public class Missile : MonoBehaviour {
                 boosting = Input.GetButton("Launch1");
             }
             steer(xMove, yMove);
-            fuel -= Time.deltaTime * fuelConsumption * (boosting ? 4:1);
+            fuel -= Time.deltaTime * fuelConsumption * (boosting ? boostCost:1);
 
             Debug.Log("Max: " + maxFuel + " current: " + fuel);
 
