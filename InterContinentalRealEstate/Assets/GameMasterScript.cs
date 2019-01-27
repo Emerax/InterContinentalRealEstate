@@ -19,6 +19,11 @@ public class GameMasterScript : MonoBehaviour
     private Canvas canvas;
     private Text timer;
 
+    private GameObject gameOverBackground;
+    private GameObject gameOverText;
+    private Text winnerAnnounceText;
+    private GameObject instructionText;
+
     const int StartGameTime = 3 * 60;
     float gameTimeLeft;
     // Start is called before the first frame update
@@ -26,6 +31,11 @@ public class GameMasterScript : MonoBehaviour
     {
         canvas = GetComponentInChildren<Canvas>();
         timer = canvas.transform.Find("TimerText").GetComponent<Text>();
+
+        gameOverBackground = canvas.transform.Find("GOBackground").gameObject;
+        gameOverText = canvas.transform.Find("GameOverText").gameObject;
+        winnerAnnounceText = canvas.transform.Find("WinnerAnnounce").GetComponent<Text>();
+        instructionText = canvas.transform.Find("InstructionText").gameObject;
 
         rnd = new System.Random();
         reset(false);
@@ -131,5 +141,12 @@ public class GameMasterScript : MonoBehaviour
                 Destroy(missile.gameObject);
             }
         }
+    }
+
+    private void toggleGameOverScreen(bool state) {
+        gameOverBackground.SetActive(state);
+        gameOverText.SetActive(state);
+        winnerAnnounceText.gameObject.SetActive(state);
+        instructionText.SetActive(state);
     }
 }
