@@ -26,6 +26,9 @@ public class Player : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        foreach(var joystick in Input.GetJoystickNames()) {
+            Debug.Log(joystick);
+        }
         canvas = transform.Find("Canvas").GetComponent<Canvas>();
         scoreText = canvas.transform.Find("ScoreText").GetComponent<Text>();
         scoreText.text = "Score: " + score;
@@ -40,6 +43,19 @@ public class Player : MonoBehaviour {
         UpdateOrbitalMovement();
         ReadInput();
         UpdateUI();
+
+        if(missileLaunched) {
+            silo.transform.Find("DirectionIndicator").gameObject.SetActive(false);
+        }
+        else {
+            silo.transform.Find("DirectionIndicator").gameObject.SetActive(true);
+        }
+        float modifier = this.gameObject.name == "Player" ? -1 : 1;
+        silo.transform.Find("DirectionIndicator").transform.localScale = new Vector3(
+            1,
+            1,
+            LaunchDirection() * modifier
+        );
     }
 
     void UpdateOrbitalMovement() {
@@ -54,7 +70,7 @@ public class Player : MonoBehaviour {
         if (missile == null || !(missile.GetComponent(typeof(Missile)) as Missile).IsFalling()) {
             // Player 2
             float horizontalTranslation = Input.GetAxis("X2");
-            float verticalTranslation = Input.GetAxis("X2");
+            float verticalTranslation = Input.GetAxis("Y2");
 
             // Player 1
             if(gameObject.name == "Player") {
@@ -87,7 +103,10 @@ public class Player : MonoBehaviour {
                 );
                 var component = missile.GetComponent<Missile>();
                 component.velocity = silo.transform.position.normalized;
-                component.initialDirection = silo.transform.TransformVector(new Vector3(1, 0, 0));
+
+                component.initialDirection = silo.transform.TransformVector(
+                    new Vector3(LaunchDirection(), 0, 0)
+                );
                 component.SetOwner(this);
                 missileLaunched = true;
 
@@ -96,6 +115,11 @@ public class Player : MonoBehaviour {
                 nextMissile.color = TranslateToSensibleColor(nextColor);
             }
         }
+    }
+
+    float LaunchDirection() {
+        var cameraInLocal = silo.transform.InverseTransformPoint(transform.position);
+        return (cameraInLocal.x > 0) ? 1 : -1;
     }
 
     void UpdateUI() {

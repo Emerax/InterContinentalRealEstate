@@ -27,6 +27,7 @@ public class House : MonoBehaviour
     public Player owner;
 
     private Collider collider;
+    bool isBuilt = false;
 
     void Start()
     {
@@ -37,10 +38,19 @@ public class House : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Dude dude = other.GetComponentInParent<Dude>();
-        if (dude != null && dude.color == color)
+        if (dude != null && dude.color == color && !isBuilt)
         {
             Destroy(other.transform.parent.gameObject);
             owner.score += dudeScore;
+        }
+        else if(dude != null) {
+            dude.OnHouseCollision();
+        }
+    }
+    private void OnTriggerExit(Collider other) {
+        Dude dude = other.GetComponentInParent<Dude>();
+        if(dude != null) {
+            dude.OnHouseCollisionStop();
         }
     }
 
@@ -84,7 +94,8 @@ public class House : MonoBehaviour
         float elasticityTime = 1.0f;
         if (t >= elasticityTime)
         {
-            collider.isTrigger = false;
+            // collider.isTrigger = false;
+            isBuilt = true;
         }
 
         if(t == 0) {
