@@ -15,8 +15,8 @@ public class GameMasterScript : MonoBehaviour
     public Player player2;
     private bool started = false;
 
-    public const int winCondition = 2;
-
+    const int StartGameTime = 3 * 60;
+    float gameTimeLeft;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +32,11 @@ public class GameMasterScript : MonoBehaviour
             spawnDudes(dudesOnStart - dudes.Length);
         }
 
-        if(player1.score > winCondition) {
-            Debug.Log("Player 1 wins");
+        if (started)
+        {
+            gameTimeLeft -= Time.deltaTime;
         }
-        if(player2.score > winCondition) {
-            Debug.Log("Player 2 wins");
-        }
+        Debug.Log(gameTimeLeft);
 
         if (Input.GetKeyUp(KeyCode.R))
         {
@@ -47,6 +46,13 @@ public class GameMasterScript : MonoBehaviour
             reset(false);
         }
 
+        if (gameTimeLeft <= 0)
+        {
+            bool player1Wins = player1.score > player2.score;
+            bool equal = player1.score == player2.score;
+
+            Debug.Log("Player 1 wins = " + player1Wins + " Player 2 wins = " + !player1Wins + "equal = " + equal);
+        }
         
     }
 
@@ -66,6 +72,7 @@ public class GameMasterScript : MonoBehaviour
 
         player1.score = 0;
         player2.score = 0;
+        gameTimeLeft = StartGameTime;
         started = true;
     }
 
