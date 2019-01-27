@@ -13,6 +13,10 @@ public class Missile : MonoBehaviour {
     const float steerDuration = 1.5f;
     float steerTime = steerDuration;
     const float steerAmount = 0.6f;
+    private float fuel;
+    const float fuelConsumption = 50;
+    private Boolean hasFuel = false;
+    Boolean boosting = false;
 
     public GameObject houseObject;
     public bool hasAttached = false;
@@ -35,6 +39,8 @@ public class Missile : MonoBehaviour {
         Array values = Enum.GetValues(typeof(Constants.Color));
         color = (Constants.Color)values.GetValue((int)UnityEngine.Random.Range(0, values.Length));
         setColor(color);
+        fuel = 1000;
+        hasFuel = true;
     }
 
     void setColor(Constants.Color color)
@@ -67,30 +73,40 @@ public class Missile : MonoBehaviour {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+        
 
-        Vector3 acceleration = transform.position.normalized * -g * Time.deltaTime;
+        Vector3 acceleration = transform.position.normalized * (-g + (-(hasFuel ? 0:1) * 10))* Time.deltaTime;
 
         velocity += acceleration;
 
-        transform.position += velocity * Time.deltaTime;
+        transform.position += velocity * Time.deltaTime * (boosting ? 10 : 1);
 
         transform.LookAt(velocity);
 
         transform.rotation = Quaternion.LookRotation(velocity, transform.position);
 
-        if(IsFalling() || hasAttached) {
-            hasAttached = true;
+        
 
+        if ((IsFalling() || hasAttached) && hasFuel) {
+            hasAttached = true;
             // Player 2
             float xMove = Input.GetAxis("X2");
             float yMove = Input.GetAxis("Y2");
+            boosting = Input.GetButton("Launch2");
 
             // Player 1
             if(owner.name == "Player") {
                 xMove = Input.GetAxis("X1");
                 yMove = Input.GetAxis("Y1");
+                boosting = Input.GetButton("Launch1");
             }
             steer(xMove, yMove);
+            fuel -= Time.deltaTime * fuelConsumption * (boosting ? 4:1);
+            
+            if (fuel < 0)
+            {
+                hasFuel = false;
+            }
         }
 
         if(!isColliding && RatioToTop() > 0.9 && !IsFalling() && steerTime > 0) {
