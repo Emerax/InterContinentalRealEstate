@@ -80,11 +80,15 @@ public class Missile : MonoBehaviour {
 
         if(IsFalling() || hasAttached) {
             hasAttached = true;
-            float xMove = Input.GetAxis("Mouse X");
-            float yMove = Input.GetAxis("Mouse Y");
+
+            // Player 2
+            float xMove = Input.GetAxis("X2");
+            float yMove = Input.GetAxis("Y2");
+
+            // Player 1
             if(owner.name == "Player") {
-                xMove = Input.GetAxis("Joy X");
-                yMove = Input.GetAxis("Joy Y");
+                xMove = Input.GetAxis("X1");
+                yMove = Input.GetAxis("Y1");
             }
             steer(xMove, yMove);
         }

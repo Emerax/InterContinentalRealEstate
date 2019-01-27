@@ -21,7 +21,11 @@ public class GameMasterScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        var joysticks = Input.GetJoystickNames();
+        foreach (var joystick in joysticks)
+        {
+            print(joystick);
+        }
     }
 
     private void reset()
