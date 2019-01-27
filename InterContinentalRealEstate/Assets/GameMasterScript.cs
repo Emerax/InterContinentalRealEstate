@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEditor;
+using UnityEngine.UI;
 
 public class GameMasterScript : MonoBehaviour
 {
@@ -15,11 +16,17 @@ public class GameMasterScript : MonoBehaviour
     public Player player2;
     private bool started = false;
 
+    private Canvas canvas;
+    private Text timer;
+
     const int StartGameTime = 3 * 60;
     float gameTimeLeft;
     // Start is called before the first frame update
     void Start()
     {
+        canvas = GetComponentInChildren<Canvas>();
+        timer = canvas.transform.Find("TimerText").GetComponent<Text>();
+
         rnd = new System.Random();
         reset(false);
     }
@@ -36,7 +43,6 @@ public class GameMasterScript : MonoBehaviour
         {
             gameTimeLeft -= Time.deltaTime;
         }
-        Debug.Log(gameTimeLeft);
 
         if (Input.GetKeyUp(KeyCode.R))
         {
@@ -53,6 +59,8 @@ public class GameMasterScript : MonoBehaviour
 
             Debug.Log("Player 1 wins = " + player1Wins + " Player 2 wins = " + !player1Wins + "equal = " + equal);
         }
+
+        timer.text = Math.Floor(gameTimeLeft).ToString();
         
     }
 
