@@ -14,8 +14,9 @@ public class Missile : MonoBehaviour {
     float steerTime = steerDuration;
     const float steerAmount = 0.6f;
     private float fuel;
-    const float fuelConsumption = 40;
+    const float fuelConsumption = 50;
     private Boolean hasFuel = false;
+    Boolean boosting = false;
 
     public GameObject houseObject;
     public bool hasAttached = false;
@@ -72,43 +73,35 @@ public class Missile : MonoBehaviour {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+        
 
-        Vector3 acceleration = transform.position.normalized * (-g + (-(hasFuel ? 0:1) * 50))* Time.deltaTime;
+        Vector3 acceleration = transform.position.normalized * (-g + (-(hasFuel ? 0:1) * 10))* Time.deltaTime;
 
         velocity += acceleration;
 
-        transform.position += velocity * Time.deltaTime;
+        transform.position += velocity * Time.deltaTime * (boosting ? 10 : 1);
 
         transform.LookAt(velocity);
 
         transform.rotation = Quaternion.LookRotation(velocity, transform.position);
 
+        
+
         if ((IsFalling() || hasAttached) && hasFuel) {
             hasAttached = true;
-            float xMove;
-            float yMove;
-            Boolean boosting;
-            if (owner.name == "Player") {
-                xMove = Input.GetAxis("Joy X");
-                yMove = Input.GetAxis("Joy Y");
-                boosting = Input.GetButton("boost1");
-                
-            } else
-            {
-                xMove = Input.GetAxis("Mouse X");
-                yMove = Input.GetAxis("Mouse Y");
-                //boosting = Input.GetButton("boost2");
-                boosting = false;
+            // Player 2
+            float xMove = Input.GetAxis("X2");
+            float yMove = Input.GetAxis("Y2");
+            boosting = Input.GetButton("Launch2");
 
-            }
-            if (boosting)
-            {
-                xMove *= 10;
-                yMove *= 10;
-                fuel -= Time.deltaTime * fuelConsumption * 10;
+            // Player 1
+            if(owner.name == "Player") {
+                xMove = Input.GetAxis("X1");
+                yMove = Input.GetAxis("Y1");
+                boosting = Input.GetButton("Launch1");
             }
             steer(xMove, yMove);
-            fuel -= Time.deltaTime * fuelConsumption;
+            fuel -= Time.deltaTime * fuelConsumption * (boosting ? 4:1);
             
             if (fuel < 0)
             {
