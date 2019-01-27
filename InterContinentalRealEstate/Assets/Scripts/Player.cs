@@ -90,10 +90,15 @@ public class Player : MonoBehaviour {
 
     void UpdateUI() {
         scoreText.text = "Score: " + score;
-        fuelBar.fillAmount = Random.value;
     }
 
     public void ReportMissileHit() {
         missileLaunched = false;
+        fuelBar.fillAmount = 1;
+    }
+
+    public void ReportFuelLevel(float level) {
+        Debug.Log("Level: " + level);
+        fuelBar.fillAmount = level;
     }
 }
