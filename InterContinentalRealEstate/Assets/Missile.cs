@@ -15,8 +15,9 @@ public class Missile : MonoBehaviour {
     const float steerAmount = 0.6f;
     private float fuel;
     const float fuelConsumption = 50;
-    private Boolean hasFuel = false;
-    Boolean boosting = false;
+    private bool hasFuel = false;
+    bool boosting = false;
+    bool hasIncressedParticles = false;
 
     public GameObject houseObject;
     public bool hasAttached = false;
@@ -75,7 +76,7 @@ public class Missile : MonoBehaviour {
         }
         
 
-        Vector3 acceleration = transform.position.normalized * (-g + (-(hasFuel ? 0:1) * 10))* Time.deltaTime;
+        Vector3 acceleration = transform.position.normalized * (-g + (-(hasFuel ? 0:1) * 2))* Time.deltaTime;
 
         velocity += acceleration;
 
@@ -84,8 +85,6 @@ public class Missile : MonoBehaviour {
         transform.LookAt(velocity);
 
         transform.rotation = Quaternion.LookRotation(velocity, transform.position);
-
-        
 
         if ((IsFalling() || hasAttached) && hasFuel) {
             hasAttached = true;
@@ -106,6 +105,40 @@ public class Missile : MonoBehaviour {
             if (fuel < 0)
             {
                 hasFuel = false;
+            }
+            var particlesObject = transform.Find("Particle System");
+            if (!hasFuel)
+            {
+                //Make particles linger after the missile is destroyed.
+                if (particlesObject != null)
+                {
+                    GameObject particles = particlesObject.gameObject;
+                    particles.GetComponent<ParticleSystem>().Stop();
+                    particles.transform.parent = null;
+                    Destroy(particles, 6);
+                }
+            }
+            if (boosting && !hasIncressedParticles)
+            {
+                
+                if (particlesObject != null)
+                {
+                    hasIncressedParticles = true;
+                    GameObject particles = particlesObject.gameObject;
+                    var particleSystemObject = particles.GetComponent<ParticleSystem>();
+                    particleSystemObject.emissionRate *= 2;
+                    particleSystemObject.transform.localScale *= 2;
+                }
+            } else if (!boosting)
+            {
+                if (particlesObject != null)
+                {
+                    hasIncressedParticles = false;
+                    GameObject particles = particlesObject.gameObject;
+                    var particleSystemObject = particles.GetComponent<ParticleSystem>();
+                    particleSystemObject.emissionRate = 30;
+                    particleSystemObject.transform.localScale = new Vector3(1, 1, 1);
+                }
             }
         }
 
