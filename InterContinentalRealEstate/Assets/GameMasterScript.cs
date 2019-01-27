@@ -10,6 +10,10 @@ public class GameMasterScript : MonoBehaviour
     public float radie;
     public GameObject dude;
     private System.Random rnd;
+    public Player player1;
+    public Player player2;
+
+    public const int winCondition = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +28,13 @@ public class GameMasterScript : MonoBehaviour
         var dudes = FindObjectsOfType(typeof(Dude));
         if(dudes.Length < dudesOnStart) {
             spawnDudes(dudesOnStart - dudes.Length);
+        }
+
+        if(player1.score > winCondition) {
+            Debug.Log("Player 1 wins");
+        }
+        if(player2.score > winCondition) {
+            Debug.Log("Player 2 wins");
         }
     }
 
