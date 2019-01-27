@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class FollowCamera : MonoBehaviour
 {
     Vector3 crashPosition;
+    Quaternion crashRotation;
     public Player player;
+    float zoomOutTime = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -36,13 +39,22 @@ public class FollowCamera : MonoBehaviour
 
             transform.position = playerPosition * (distance)
                      + targetPosition * (1 - distance);
-            transform.eulerAngles = playerRotation * (distance)
-                     + missile.transform.eulerAngles * (1 - distance);
+            transform.rotation = Quaternion.Lerp(
+                missile.transform.rotation,
+                playerRotationQuat,
+                distance
+            );
             crashPosition = transform.position;
+            crashRotation = transform.rotation;
+            zoomOutTime = 0;
         }
         else {
-            transform.position = playerPosition;
-            transform.rotation = playerRotationQuat;
+            float missileDistance = zoomOutAmount(zoomOutTime);
+            transform.position = playerPosition * missileDistance
+                    + (crashPosition * (1-missileDistance));
+            transform.rotation = Quaternion.Lerp(crashRotation, playerRotationQuat, missileDistance);
+
+            zoomOutTime = Math.Min(zoomOutTime + Time.deltaTime, 1);
             Screen.lockCursor = true;
             if (Input.GetKeyDown("escape"))
             {
@@ -52,5 +64,11 @@ public class FollowCamera : MonoBehaviour
             // // transform.eulerAngles -= (transform.eulerAngles - initialRotation) * Time.deltaTime;
             // transform.LookAt(crashPosition);
         }
+    }
+
+    float zoomOutAmount(float t) {
+        // The integral of this (math.sqrt(t) * (1-t**3))
+        // divided by its max value (0.444)
+        return -2/9.0f*(float)Math.Pow(t, (3/2.0f)) * ((float)Math.Pow(t, 3) - 3) / 0.444F;
     }
 }
