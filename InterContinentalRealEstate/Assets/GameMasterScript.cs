@@ -19,7 +19,12 @@ public class GameMasterScript : MonoBehaviour
     private Canvas canvas;
     private Text timer;
 
-    const int StartGameTime = 3 * 60;
+    private GameObject gameOverBackground;
+    private GameObject gameOverText;
+    private Text winnerAnnounceText;
+    private GameObject instructionText;
+
+    public const int StartGameTime = 3 * 60;
     float gameTimeLeft;
     // Start is called before the first frame update
     void Start()
@@ -27,8 +32,15 @@ public class GameMasterScript : MonoBehaviour
         canvas = GetComponentInChildren<Canvas>();
         timer = canvas.transform.Find("TimerText").GetComponent<Text>();
 
+        gameOverBackground = canvas.transform.Find("GOBackground").gameObject;
+        gameOverText = canvas.transform.Find("GameOverText").gameObject;
+        winnerAnnounceText = canvas.transform.Find("WinnerAnnounce").GetComponent<Text>();
+        instructionText = canvas.transform.Find("InstructionText").gameObject;
+
         rnd = new System.Random();
         reset(false);
+
+        ToggleGameOverScreen(false);
     }
 
     // Update is called once per frame
@@ -57,7 +69,16 @@ public class GameMasterScript : MonoBehaviour
             bool player1Wins = player1.score > player2.score;
             bool equal = player1.score == player2.score;
 
-            Debug.Log("Player 1 wins = " + player1Wins + " Player 2 wins = " + !player1Wins + "equal = " + equal);
+            if (equal) {
+                winnerAnnounceText.text = "It's a draw!";
+            } else {
+                if (player1Wins) {
+                    winnerAnnounceText.text = "Player 1 wins!";
+                } else {
+                    winnerAnnounceText.text = "Player 2 wins!";
+                }
+            }
+            ToggleGameOverScreen(true);
         }
 
         timer.text = Math.Floor(gameTimeLeft).ToString();
@@ -82,6 +103,8 @@ public class GameMasterScript : MonoBehaviour
         player2.score = 0;
         gameTimeLeft = StartGameTime;
         started = true;
+
+        ToggleGameOverScreen(false);
     }
 
     private void spawnDudes(int amount)
@@ -122,5 +145,12 @@ public class GameMasterScript : MonoBehaviour
         {
             Destroy(missile.gameObject);
         }
+    }
+
+    private void ToggleGameOverScreen(bool state) {
+        gameOverBackground.SetActive(state);
+        gameOverText.SetActive(state);
+        winnerAnnounceText.gameObject.SetActive(state);
+        instructionText.SetActive(state);
     }
 }
