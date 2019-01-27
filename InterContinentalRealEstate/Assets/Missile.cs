@@ -133,7 +133,8 @@ public class Missile : MonoBehaviour {
                     GameObject particles = particlesObject.gameObject;
                     var particleSystemObject = particles.GetComponent<ParticleSystem>();
                     particleSystemObject.emissionRate *= 2;
-                    particleSystemObject.transform.localScale *= 2;
+                    particleSystemObject.startSize *= 2;
+                    // particleSystemObject.transform.localScale *= 2;
                 }
             } else if (!boosting)
             {
@@ -143,6 +144,7 @@ public class Missile : MonoBehaviour {
                     GameObject particles = particlesObject.gameObject;
                     var particleSystemObject = particles.GetComponent<ParticleSystem>();
                     particleSystemObject.emissionRate = 30;
+                    particleSystemObject.startSize = 0.4f;
                     particleSystemObject.transform.localScale = new Vector3(1, 1, 1);
                 }
             }
