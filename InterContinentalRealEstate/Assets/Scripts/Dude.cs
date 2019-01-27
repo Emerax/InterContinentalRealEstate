@@ -19,6 +19,8 @@ public class Dude : MonoBehaviour
 
     public float speed;
     public Constants.Color color;
+    int collidingHouses = 0;
+    bool isRoofHobo = false;
 
     void Start()
     {
@@ -64,13 +66,32 @@ public class Dude : MonoBehaviour
             direction = Quaternion.Euler(angleA, angleB, angleC);
             timeUntilNewDirection = UnityEngine.Random.value * maxTime;
         }
+        if(collidingHouses > 0) {
+            if(UnityEngine.Random.value < 1.0f * Time.deltaTime) {
+                isRoofHobo = true;
+            }
+            if(isRoofHobo) {
+                transform.position += transform.position.normalized * 0.1f;
+            }
+        }
 
-        // Move in direction
-        Quaternion deltaRotation = Quaternion.Lerp(Quaternion.Euler(0, 0, 0), direction, Time.deltaTime);
-        rb.MovePosition(deltaRotation * (transform.position - planetCenter) + planetCenter);
-        timeUntilNewDirection -= Time.deltaTime;
+        if(!isRoofHobo) {
+            // Move in direction
+            Quaternion deltaRotation = Quaternion.Lerp(Quaternion.Euler(0, 0, 0), direction, Time.deltaTime);
+            rb.MovePosition(deltaRotation * (transform.position - planetCenter) + planetCenter);
+            timeUntilNewDirection -= Time.deltaTime;
 
-        // Feet towards planet center
-        transform.LookAt(planetCenter);
+            // Feet towards planet center
+            transform.LookAt(planetCenter);
+        }
+    }
+
+    public void OnHouseCollision() {
+        Debug.Log("Removing a collided house");
+        collidingHouses += 1;
+    }
+    public void OnHouseCollisionStop() {
+        Debug.Log("Adding a collided house");
+        collidingHouses -= 1;
     }
 }

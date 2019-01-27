@@ -689,6 +689,26 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 496195007c242a279b4efe945949bb5f, type: 2}
+    - target: {fileID: 978846914628321011, guid: d8992e6da4de78444a325190a4cfe859,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8231670640585917666, guid: d8992e6da4de78444a325190a4cfe859,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4302261199562910267, guid: d8992e6da4de78444a325190a4cfe859,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065178992187930611, guid: d8992e6da4de78444a325190a4cfe859,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8992e6da4de78444a325190a4cfe859, type: 3}
 --- !u!1 &796176693 stripped
@@ -779,6 +799,11 @@ PrefabInstance:
       propertyPath: m_NormalizedViewPortRect.width
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1891659873390793924, guid: 72a83cda4b7c2950887b8c93237f59cd,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 1335
+      objectReference: {fileID: 0}
     - target: {fileID: 1891659872167216207, guid: 72a83cda4b7c2950887b8c93237f59cd,
         type: 3}
       propertyPath: player
@@ -864,6 +889,41 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 645a2f3defabd67cdbb98cd5aa061bce, type: 2}
+    - target: {fileID: 978846914628321011, guid: d8992e6da4de78444a325190a4cfe859,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8231670640585917666, guid: d8992e6da4de78444a325190a4cfe859,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4302261199562910267, guid: d8992e6da4de78444a325190a4cfe859,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941938924716824423, guid: d8992e6da4de78444a325190a4cfe859,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941938924716824423, guid: d8992e6da4de78444a325190a4cfe859,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6941938924716824423, guid: d8992e6da4de78444a325190a4cfe859,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065178992187930611, guid: d8992e6da4de78444a325190a4cfe859,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8992e6da4de78444a325190a4cfe859, type: 3}
 --- !u!1 &2005309425
@@ -1168,6 +1228,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_NormalizedViewPortRect.width
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1891659873390793924, guid: 72a83cda4b7c2950887b8c93237f59cd,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 823
       objectReference: {fileID: 0}
     - target: {fileID: 1891659872167216207, guid: 72a83cda4b7c2950887b8c93237f59cd,
         type: 3}
