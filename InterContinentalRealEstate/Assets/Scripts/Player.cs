@@ -50,11 +50,10 @@ public class Player : MonoBehaviour {
         else {
             silo.transform.Find("DirectionIndicator").gameObject.SetActive(true);
         }
-        float modifier = this.gameObject.name == "Player" ? -1 : 1;
         silo.transform.Find("DirectionIndicator").transform.localScale = new Vector3(
             1,
             1,
-            LaunchDirection() * modifier
+            LaunchDirection()
         );
     }
 

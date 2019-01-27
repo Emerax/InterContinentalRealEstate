@@ -99,37 +99,28 @@ public class GameMasterScript : MonoBehaviour
 
     private void removedDudes()
     {
-        var dudes = Resources.FindObjectsOfTypeAll<Dude>();
+        var dudes = FindObjectsOfType(typeof(Dude)) as Dude[];
         foreach (var dude in dudes)
         {
-            if (!(PrefabUtility.GetPrefabParent(dude.gameObject) == null && PrefabUtility.GetPrefabObject(dude.gameObject) != null))
-            {
-                Destroy(dude.gameObject);
-            }
+            Destroy(dude.gameObject);
         }
     }
 
     private void removedHouses()
     {
-        var houses = Resources.FindObjectsOfTypeAll<House>();
+        var houses = FindObjectsOfType(typeof(House)) as House[];;
         foreach (var house in houses)
         {
-            if (!(PrefabUtility.GetPrefabParent(house.gameObject) == null && PrefabUtility.GetPrefabObject(house.gameObject) != null))
-            {
-                Destroy(house.gameObject);
-            }
+            Destroy(house.gameObject);
         }
     }
 
     private void removedMissiles()
     {
-        var missiles = Resources.FindObjectsOfTypeAll<Missile>();
+        var missiles = FindObjectsOfType(typeof(Missile)) as Missile[];;
         foreach (var missile in missiles)
         {
-            if (!(PrefabUtility.GetPrefabParent(missile.gameObject) == null && PrefabUtility.GetPrefabObject(missile.gameObject) != null))
-            {
-                Destroy(missile.gameObject);
-            }
+            Destroy(missile.gameObject);
         }
     }
 }
