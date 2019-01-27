@@ -142,11 +142,11 @@ public class Player : MonoBehaviour {
 
     private Color TranslateToSensibleColor(Constants.Color nextColor) {
         if(nextColor == Constants.Color.Blue) {
-            return Color.blue;
+            return new Color(0, 115.0f/ 255.0f, 202.0f / 255.0f);
         } else if(nextColor == Constants.Color.Green) {
-            return Color.green;
+            return new Color(48.0f / 255.0f, 204.0f / 255.0f, 0);
         } else {
-            return Color.red;
+            return new Color(204.0f / 255.0f, 0, 4.0f / 255.0f);
         }
     }
 }
