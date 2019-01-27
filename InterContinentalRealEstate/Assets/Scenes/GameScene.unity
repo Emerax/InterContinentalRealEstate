@@ -802,12 +802,12 @@ PrefabInstance:
     - target: {fileID: 2987500145433506227, guid: d8992e6da4de78444a325190a4cfe859,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.22
+      value: 0.105
       objectReference: {fileID: 0}
     - target: {fileID: 2987500145433506227, guid: d8992e6da4de78444a325190a4cfe859,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.39
+      value: -2.405
       objectReference: {fileID: 0}
     - target: {fileID: 2987500145433506227, guid: d8992e6da4de78444a325190a4cfe859,
         type: 3}
@@ -1034,18 +1034,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1483830278, guid: 011eca7fdec8c3240992a5a0b44560c6, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -23
-      objectReference: {fileID: 0}
-    - target: {fileID: 1483830278, guid: 011eca7fdec8c3240992a5a0b44560c6, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1483830278, guid: 011eca7fdec8c3240992a5a0b44560c6, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 1483830279, guid: 011eca7fdec8c3240992a5a0b44560c6, type: 3}
       propertyPath: m_Color.r
       value: 0.99202263
@@ -1057,6 +1045,18 @@ PrefabInstance:
     - target: {fileID: 1483830279, guid: 011eca7fdec8c3240992a5a0b44560c6, type: 3}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1483830278, guid: 011eca7fdec8c3240992a5a0b44560c6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1483830278, guid: 011eca7fdec8c3240992a5a0b44560c6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1483830278, guid: 011eca7fdec8c3240992a5a0b44560c6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 011eca7fdec8c3240992a5a0b44560c6, type: 3}
