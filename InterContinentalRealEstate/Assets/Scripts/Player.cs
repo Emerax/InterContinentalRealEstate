@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ public class Player : MonoBehaviour {
     private Canvas canvas;
     private Text scoreText;
     private Image fuelBar;
+    private Image nextMissile;
+    private Constants.Color nextColor;
 
     // Start is called before the first frame update
     void Start() {
@@ -27,6 +30,9 @@ public class Player : MonoBehaviour {
         scoreText = canvas.transform.Find("ScoreText").GetComponent<Text>();
         scoreText.text = "Score: " + score;
         fuelBar = canvas.transform.Find("FuelBar").GetComponent<Image>();
+        nextMissile = canvas.transform.Find("NextMissile").GetComponent<Image>();
+        nextColor = NewColor();
+        nextMissile.color = TranslateToSensibleColor(nextColor);
     }
 
     // Update is called once per frame
@@ -84,6 +90,10 @@ public class Player : MonoBehaviour {
                 component.initialDirection = silo.transform.TransformVector(new Vector3(1, 0, 0));
                 component.SetOwner(this);
                 missileLaunched = true;
+
+                missile.GetComponent<Missile>().setColor(nextColor);
+                nextColor = NewColor();
+                nextMissile.color = TranslateToSensibleColor(nextColor);
             }
         }
     }
@@ -98,7 +108,21 @@ public class Player : MonoBehaviour {
     }
 
     public void ReportFuelLevel(float level) {
-        Debug.Log("Level: " + level);
         fuelBar.fillAmount = level;
+    }
+
+    private Constants.Color NewColor() {
+        Array values = Enum.GetValues(typeof(Constants.Color));
+        return (Constants.Color)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+    }
+
+    private Color TranslateToSensibleColor(Constants.Color nextColor) {
+        if(nextColor == Constants.Color.Blue) {
+            return Color.blue;
+        } else if(nextColor == Constants.Color.Green) {
+            return Color.green;
+        } else {
+            return Color.red;
+        }
     }
 }

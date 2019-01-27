@@ -39,15 +39,12 @@ public class Missile : MonoBehaviour {
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        Array values = Enum.GetValues(typeof(Constants.Color));
-        color = (Constants.Color)values.GetValue((int)UnityEngine.Random.Range(0, values.Length));
-        setColor(color);
         fuel = 1000F;
         hasFuel = true;
     }
 
-    void setColor(Constants.Color color)
-    {
+    public void setColor(Constants.Color color) {
+        this.color = color;
         var renderer = GetComponentInChildren<Renderer>();
         var materials = renderer.sharedMaterials;
         switch (color)
@@ -103,8 +100,6 @@ public class Missile : MonoBehaviour {
             }
             steer(xMove, yMove);
             fuel -= Time.deltaTime * fuelConsumption * (boosting ? 4:1);
-
-            Debug.Log("Max: " + maxFuel + " current: " + fuel);
 
             owner.ReportFuelLevel(fuel / maxFuel);
             
