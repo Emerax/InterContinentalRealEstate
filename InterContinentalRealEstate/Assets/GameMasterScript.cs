@@ -10,6 +10,10 @@ public class GameMasterScript : MonoBehaviour
     public float radie;
     public GameObject dude;
     private System.Random rnd;
+    public Player player1;
+    public Player player2;
+
+    public const int winCondition = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -21,21 +25,27 @@ public class GameMasterScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var joysticks = Input.GetJoystickNames();
-        foreach (var joystick in joysticks)
-        {
-            print(joystick);
+        var dudes = FindObjectsOfType(typeof(Dude));
+        if(dudes.Length < dudesOnStart) {
+            spawnDudes(dudesOnStart - dudes.Length);
+        }
+
+        if(player1.score > winCondition) {
+            Debug.Log("Player 1 wins");
+        }
+        if(player2.score > winCondition) {
+            Debug.Log("Player 2 wins");
         }
     }
 
     private void reset()
     {
-        spawnDudes();
+        spawnDudes(dudesOnStart);
     }
 
-    private void spawnDudes()
+    private void spawnDudes(int amount)
     {
-        for (int i = 0; i < dudesOnStart; i++){
+        for (int i = 0; i < amount; i++){
             int psi = rnd.Next(0, 180);
             int fi = rnd.Next(0, 360);
 

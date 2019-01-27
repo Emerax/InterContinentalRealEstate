@@ -131,10 +131,13 @@ public class Missile : MonoBehaviour {
             clone.GetComponent<House>().owner = owner;
 
             //Make particles linger after the missile is destroyed.
-            GameObject particles = transform.Find("Particle System").gameObject;
-            particles.GetComponent<ParticleSystem>().Stop();
-            particles.transform.parent = null;
-            Destroy(particles, 6);
+            var particlesObject = transform.Find("Particle System");
+            if(particlesObject != null) {
+                GameObject particles = particlesObject.gameObject;
+                particles.GetComponent<ParticleSystem>().Stop();
+                particles.transform.parent = null;
+                Destroy(particles, 6);
+            }
 
             Destroy(gameObject);
             Screen.lockCursor = false;
