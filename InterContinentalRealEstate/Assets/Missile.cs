@@ -13,6 +13,9 @@ public class Missile : MonoBehaviour {
     const float steerDuration = 1.5f;
     float steerTime = steerDuration;
     const float steerAmount = 0.6f;
+    private float fuel;
+    const float fuelConsumption = 40;
+    private Boolean hasFuel = false;
 
     public GameObject houseObject;
     public bool hasAttached = false;
@@ -35,6 +38,8 @@ public class Missile : MonoBehaviour {
         Array values = Enum.GetValues(typeof(Constants.Color));
         color = (Constants.Color)values.GetValue((int)UnityEngine.Random.Range(0, values.Length));
         setColor(color);
+        fuel = 1000;
+        hasFuel = true;
     }
 
     void setColor(Constants.Color color)
@@ -68,7 +73,7 @@ public class Missile : MonoBehaviour {
             Cursor.visible = false;
         }
 
-        Vector3 acceleration = transform.position.normalized * -g * Time.deltaTime;
+        Vector3 acceleration = transform.position.normalized * (-g + (-(hasFuel ? 0:1) * 50))* Time.deltaTime;
 
         velocity += acceleration;
 
@@ -78,15 +83,37 @@ public class Missile : MonoBehaviour {
 
         transform.rotation = Quaternion.LookRotation(velocity, transform.position);
 
-        if(IsFalling() || hasAttached) {
+        if ((IsFalling() || hasAttached) && hasFuel) {
             hasAttached = true;
-            float xMove = Input.GetAxis("Mouse X");
-            float yMove = Input.GetAxis("Mouse Y");
-            if(owner.name == "Player") {
+            float xMove;
+            float yMove;
+            Boolean boosting;
+            if (owner.name == "Player") {
                 xMove = Input.GetAxis("Joy X");
                 yMove = Input.GetAxis("Joy Y");
+                boosting = Input.GetButton("boost1");
+                
+            } else
+            {
+                xMove = Input.GetAxis("Mouse X");
+                yMove = Input.GetAxis("Mouse Y");
+                //boosting = Input.GetButton("boost2");
+                boosting = false;
+
+            }
+            if (boosting)
+            {
+                xMove *= 10;
+                yMove *= 10;
+                fuel -= Time.deltaTime * fuelConsumption * 10;
             }
             steer(xMove, yMove);
+            fuel -= Time.deltaTime * fuelConsumption;
+            
+            if (fuel < 0)
+            {
+                hasFuel = false;
+            }
         }
 
         if(!isColliding && RatioToTop() > 0.9 && !IsFalling() && steerTime > 0) {
