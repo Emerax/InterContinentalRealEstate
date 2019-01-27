@@ -24,7 +24,7 @@ public class GameMasterScript : MonoBehaviour
     private Text winnerAnnounceText;
     private GameObject instructionText;
 
-    const int StartGameTime = 3 * 60;
+    public const int StartGameTime = 3 * 60;
     float gameTimeLeft;
     // Start is called before the first frame update
     void Start()
@@ -39,6 +39,8 @@ public class GameMasterScript : MonoBehaviour
 
         rnd = new System.Random();
         reset(false);
+
+        ToggleGameOverScreen(false);
     }
 
     // Update is called once per frame
@@ -67,7 +69,16 @@ public class GameMasterScript : MonoBehaviour
             bool player1Wins = player1.score > player2.score;
             bool equal = player1.score == player2.score;
 
-            Debug.Log("Player 1 wins = " + player1Wins + " Player 2 wins = " + !player1Wins + "equal = " + equal);
+            if (equal) {
+                winnerAnnounceText.text = "It's a draw!";
+            } else {
+                if (player1Wins) {
+                    winnerAnnounceText.text = "Player 1 wins!";
+                } else {
+                    winnerAnnounceText.text = "Player 2 wins!";
+                }
+            }
+            ToggleGameOverScreen(true);
         }
 
         timer.text = Math.Floor(gameTimeLeft).ToString();
@@ -92,6 +103,8 @@ public class GameMasterScript : MonoBehaviour
         player2.score = 0;
         gameTimeLeft = StartGameTime;
         started = true;
+
+        ToggleGameOverScreen(false);
     }
 
     private void spawnDudes(int amount)
@@ -143,7 +156,7 @@ public class GameMasterScript : MonoBehaviour
         }
     }
 
-    private void toggleGameOverScreen(bool state) {
+    private void ToggleGameOverScreen(bool state) {
         gameOverBackground.SetActive(state);
         gameOverText.SetActive(state);
         winnerAnnounceText.gameObject.SetActive(state);
