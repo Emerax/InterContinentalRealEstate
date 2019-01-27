@@ -38,7 +38,18 @@ public class Player : MonoBehaviour {
         ReadInput();
         UpdateUI();
 
-        silo.transform.Find("DirectionIndicator").transform.localScale = new Vector3(1, 1, LaunchDirection());
+        if(missileLaunched) {
+            silo.transform.Find("DirectionIndicator").gameObject.SetActive(false);
+        }
+        else {
+            silo.transform.Find("DirectionIndicator").gameObject.SetActive(true);
+        }
+        float modifier = this.gameObject.name == "Player" ? -1 : 1;
+        silo.transform.Find("DirectionIndicator").transform.localScale = new Vector3(
+            1,
+            1,
+            LaunchDirection() * modifier
+        );
     }
 
     void UpdateOrbitalMovement() {
@@ -87,7 +98,9 @@ public class Player : MonoBehaviour {
                 var component = missile.GetComponent<Missile>();
                 component.velocity = silo.transform.position.normalized;
 
-            component.initialDirection = silo.transform.TransformVector(new Vector3(LaunchDirection(), 0, 0));
+                component.initialDirection = silo.transform.TransformVector(
+                    new Vector3(LaunchDirection(), 0, 0)
+                );
                 component.SetOwner(this);
                 missileLaunched = true;
             }
