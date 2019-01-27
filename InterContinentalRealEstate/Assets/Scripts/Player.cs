@@ -46,7 +46,7 @@ public class Player : MonoBehaviour {
         if (missile == null || !(missile.GetComponent(typeof(Missile)) as Missile).IsFalling()) {
             // Player 2
             float horizontalTranslation = Input.GetAxis("X2");
-            float verticalTranslation = Input.GetAxis("X2");
+            float verticalTranslation = Input.GetAxis("Y2");
 
             // Player 1
             if(gameObject.name == "Player") {
